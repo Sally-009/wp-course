@@ -1,3 +1,4 @@
+// eslint-disable-next-line global-strict
 'use strict';
 
 /*
