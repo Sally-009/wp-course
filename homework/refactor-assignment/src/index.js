@@ -7,25 +7,27 @@
     board ... 2D array of 3 * 3
     player ... corresponding number to see if they win
 */
-function findBingo(board, player)
-{
-  for(let i=0; i<board.length; i+=1)
-  {
-      // Search for horizontal line
-      if(board[i][0]===player && board[i][1]===player && board[i][2]===player)
-        return true;
-      // Search for vertical line
-      if(board[0][i]===player && board[1][i]===player && board[2][i]===player)
-        return true;
+function findBingo(board, player) {
+  // Arrow Function for checking to see if the cell matched to the player #
+  /* <NOTE>
+   * row.every ... Check the condition in every elements in the arrow
+   * cell = the value of each item
+   */
+  const isMatchingRow = row => row.every(cell => cell === player);
+
+  // Check horizontal and vertical lines
+  for (let i = 0; i < board.length; i+=1) {
+    if (isMatchingRow(board[i]) || isMatchingRow(board.map(row => row[i])))
+      return true;
   }
 
-  // Search for diagonal line
-  if((board[0][0]===player && board[1][1]===player && board[2][2]===player)||(board[0][2]===player && board[1][1]===player && board[2][0]===player))
+  // Check diagonal lines
+  if (isMatchingRow([board[0][0], board[1][1], board[2][2]]) ||
+      isMatchingRow([board[0][2], board[1][1], board[2][0]]))
     return true;
 
   // If none of them have applied, return false
   return false;
-
 }
 
 // players
